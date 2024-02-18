@@ -1,0 +1,15 @@
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 1rem;
+    align-items: center;
+    color: #222;
+  }
+
+  .top-nav > div {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-weight: bold;
+  }
