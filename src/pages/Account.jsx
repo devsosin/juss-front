@@ -2,8 +2,12 @@ import React from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
+import { IoCopyOutline } from "react-icons/io5";
 
-import Card from '../components/Card/Card'
+import SecondCard from '../components/Card/SecondCard'
+import BaseButton from '../components/Button/BaseButton'
+
+import { won } from '../utils/currency'
 
 import './Account.css'
 
@@ -24,20 +28,20 @@ const Account = ( {id} ) => {
 
     <div className="account-info">
       <div>
-        국민은행 70100200140450
-
-        복사
+        <span style={{textDecoration:"underline", marginRight:".5rem"}}>국민은행 70100200140450</span>
+        <IoCopyOutline size={12} />
+        <span style={{fontSize: "10px", marginLeft: ".25rem"}}>복사</span>
       </div>
 
       <div>
-        금액
+        <span>{won(93050)}</span>
       </div>
 
     </div>
 
-    <div className="account-btn">
-      <button>채우기</button>
-      <button>보내기</button>
+    <div className="account-btns">
+      <BaseButton text={"채우기"} />
+      <BaseButton text={"보내기"} />
     </div>
 
     <div className="account-transaction">
@@ -55,7 +59,8 @@ const Account = ( {id} ) => {
 
       <div className="tr-list">
         {/* Card 2 반대로, 별표 */}
-        <Card title={"617 계좌개설"} subTitle={"14:13"} />
+        {/* 금액 */}
+        <SecondCard title={"617 계좌개설"} subTitle={"14:13"} />
 
         {/* 1원, 93,305원 */}
       </div>

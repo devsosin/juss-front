@@ -1,0 +1,40 @@
+.Card-second {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .Card-second > .left {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  
+  .Card-second > .left > div:first-child {
+    width: 48px;
+    height: 48px;
+    background-color: black;
+    border-radius: 50px;
+  }
+  
+  .Card-second > .left > div:nth-child(2) {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  
+  .Card-second .card-title {
+    color: #222;
+    font-weight: bold;
+  }
+  
+  .Card-second .card-sub {
+    color: #787878;
+    font-size: 14px;
+  }
+  

@@ -13,3 +13,35 @@
     gap: 2rem;
     font-weight: bold;
   }
+
+  .account-info {
+    margin-top: 5rem;
+  }
+
+  .account-info > div:first-child {
+    display: flex;
+    align-items: center;
+  }
+
+  .account-info > div:last-child {
+    text-align: left;
+  }
+
+  .account-info > div:last-child > span {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .account-btns {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+  }
+  .account-btns > div {
+    flex: 1;    
+  }
+  .account-btns > div:first-child {
+    background-color: rgba(92, 137, 255, 0.1);
+    color: rgba(92, 137, 255, 0.8);
+
+  }

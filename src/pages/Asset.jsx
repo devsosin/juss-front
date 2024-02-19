@@ -64,14 +64,14 @@ const Asset = () => {
 
   return (
     <div className="Asset">
-      <div className="topNav">
+      <div className="top-nav">
         <Link onClick={() => navigate(-1)}>
           <FaArrowLeft size={24} />
         </Link>
         <button>편집</button>
       </div>
 
-      <div className="menuBar">
+      <div className="menu-bar">
         <div className="active">자산</div>
         <div>자산 굴리기</div>
         <div>대출 찾기</div>
