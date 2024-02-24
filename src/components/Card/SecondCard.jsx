@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 
-import './SecondCard.css'
+import "./SecondCard.css";
 
 const SecondCard = ({ title, subTitle, icon, Child }) => {
   return (
@@ -12,11 +12,9 @@ const SecondCard = ({ title, subTitle, icon, Child }) => {
           <div className="card-sub">{subTitle}</div>
         </div>
       </div>
-      <div className="right">
-        {Child}
-      </div>
+      <div className="right">{Child}</div>
     </div>
-  )
-}
+  );
+};
 
-export default SecondCard
+export default SecondCard;

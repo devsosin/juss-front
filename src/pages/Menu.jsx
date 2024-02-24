@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import BottomNav from "../components/BottomNav/BottomNav";
 
 const Menu = () => {
@@ -7,7 +7,7 @@ const Menu = () => {
       메뉴 페이지
       <BottomNav />
     </div>
-  )
-}
+  );
+};
 
-export default Menu
+export default Menu;

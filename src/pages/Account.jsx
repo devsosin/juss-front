@@ -1,73 +1,147 @@
 import React from "react";
 
 import { Link, useNavigate } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaAngleDown } from "react-icons/fa";
 import { IoCopyOutline } from "react-icons/io5";
+import { CopyToClipboard } from "react-copy-to-clipboard/src";
 
-import SecondCard from '../components/Card/SecondCard'
-import BaseButton from '../components/Button/BaseButton'
+import SecondCard from "../components/Card/SecondCard";
+import BaseButton from "../components/Button/BaseButton";
 
-import { won } from '../utils/currency'
+import { won } from "../utils/currency";
 
-import './Account.css'
+import "./Account.css";
+import Balance from "../components/Card/Balance";
 
-const Account = ( {id} ) => {
+const Account = ({ id }) => {
   const navigate = useNavigate();
 
+  const account = {
+    id: "lksdjflaskdf",
+    balance: 93305,
+    accountName: "KB마이핏통장",
+    bankName: "KB국민",
+    accountNumber: "70100200140450",
+  };
+
+  const transactions = [
+    {
+      date: "20240127", // 구성 어떻게?
+      trs: [
+        {
+          id: "aosijdf",
+          memo: "617 계좌개설",
+          balance: 93305,
+          amount: 1,
+          isSend: false, // receiver, send 조회
+          createdAt: new Date(),
+        },
+        {
+          id: "aosijdfasjc",
+          memo: "KB카드출금",
+          balance: 93304,
+          amount: 121700,
+          isSend: true, // receiver, send 조회
+          createdAt: new Date(),
+        },
+      ],
+    },
+  ];
+
+  const isLoading = false;
+
   console.log(id);
-  return <div className="Account">
-    <div className="top-nav">
-      <div>
-        <Link onClick={() => navigate(-1)}>
-          <FaArrowLeft size={24} />
-        </Link>
-        <span>KB마이핏통장</span>
-      </div>
+  return (
+    <div className="Account">
+      <div className="top-nav">
+        <div>
+          <Link onClick={() => navigate(-1)}>
+            <FaArrowLeft size={24} />
+          </Link>
+          <span>KB마이핏통장</span>
+        </div>
         <button>관리</button>
+      </div>
+
+      <div className="account-info">
+        <div>
+          {/* 이부분 좀 더 간단하게 구현 안되나 -> Toast 띄우기 */}
+          <CopyToClipboard
+            text={`${account.bankName} ${account.accountNumber}`}
+          >
+            <text style={{ textDecoration: "underline", marginRight: ".5rem" }}>
+              {account.bankName} {account.accountNumber}
+            </text>
+          </CopyToClipboard>
+          <CopyToClipboard
+            text={`${account.bankName} ${account.accountNumber}`}
+          >
+            <IoCopyOutline size={12} />
+          </CopyToClipboard>
+          <CopyToClipboard
+            text={`${account.bankName} ${account.accountNumber}`}
+          >
+            <text style={{ fontSize: "10px", marginLeft: ".25rem" }}>복사</text>
+          </CopyToClipboard>
+        </div>
+
+        <div>
+          <span>{won(account.balance)}</span>
+        </div>
+      </div>
+
+      <div className="account-btns">
+        <BaseButton text={"채우기"} onClick={() => navigate("/withdraw")} />
+        <BaseButton text={"보내기"} />
+      </div>
+
+      <div className="account-transaction">
+        {/* 전체, 입금, 출금 */}
+        <div className="tr-state">
+          <div>
+            전체 <FaAngleDown size={12} />
+          </div>
+          <div>{isLoading ? "불러오는 중" : "불러오기 완료"}</div>
+          {/* 원 도는 거, 체크표시 */}
+        </div>
+
+        {/* 반복문 시작 */}
+        {transactions.map(({ date, trs }) => {
+          return (
+            <>
+              <div className="tr-date" key={date}>
+                {date}
+              </div>
+              <div className="tr-list">
+                {/* 금액, 잔액 */}
+                {/* 금액 */}
+                {trs.map(({ id, memo, amount, isSend, balance, createdAt }) => {
+                  {
+                    /* 1원, 93,305원 */
+                  }
+                  return (
+                    <SecondCard
+                      title={memo}
+                      subTitle={`${createdAt.getHours()}:${createdAt.getMinutes()}`}
+                      key={id}
+                      Child={
+                        <Balance
+                          amount={amount}
+                          balance={balance}
+                          isSend={isSend}
+                        />
+                      }
+                    />
+                  );
+                })}
+              </div>
+            </>
+          );
+        })}
+        {/* 반복문 끝 */}
+      </div>
     </div>
-
-    <div className="account-info">
-      <div>
-        <span style={{textDecoration:"underline", marginRight:".5rem"}}>국민은행 70100200140450</span>
-        <IoCopyOutline size={12} />
-        <span style={{fontSize: "10px", marginLeft: ".25rem"}}>복사</span>
-      </div>
-
-      <div>
-        <span>{won(93050)}</span>
-      </div>
-
-    </div>
-
-    <div className="account-btns">
-      <BaseButton text={"채우기"} />
-      <BaseButton text={"보내기"} />
-    </div>
-
-    <div className="account-transaction">
-      <div>
-        전체
-
-        불러오는 중 / 불러오기 완료
-      </div>
-
-      {/* 반복문 시작 */}
-
-      <div className="tr-date">
-        1월 27일
-      </div>
-
-      <div className="tr-list">
-        {/* Card 2 반대로, 별표 */}
-        {/* 금액 */}
-        <SecondCard title={"617 계좌개설"} subTitle={"14:13"} />
-
-        {/* 1원, 93,305원 */}
-      </div>
-
-      {/* 반복문 끝 */}
-      </div>
-  </div>;
+  );
 };
 
 export default Account;

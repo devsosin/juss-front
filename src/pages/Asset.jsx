@@ -9,7 +9,7 @@ import BaseButton from "../components/Button/BaseButton";
 import SubButton from "../components/Button/SubButton";
 import Card from "../components/Card/Card";
 
-import { won } from '../utils/currency'
+import { won } from "../utils/currency";
 
 const Asset = () => {
   const totalMoney = 54839483;
@@ -19,7 +19,7 @@ const Asset = () => {
       balance: 93305,
       isShow: true,
       accountName: "KB마이핏통장",
-      accountType: '입출금' // -> 송금버튼
+      accountType: "입출금", // -> 송금버튼
     },
     {
       id: "asdfdsf",
@@ -48,19 +48,19 @@ const Asset = () => {
   ];
   const [accountmoney, setAccountMoney] = useState(0);
 
-
   const navigate = useNavigate();
 
   const gotoAccountDetail = (id) => {
-    navigate(`/account/${id}`)
-  }
+    navigate(`/account/${id}`);
+  };
 
-  useEffect(()=> {
+  useEffect(() => {
     setAccountMoney(
-      datas.reduce((acc, {balance}) => {
-      return acc + balance
-      }, 0))
-  }, [])
+      datas.reduce((acc, { balance }) => {
+        return acc + balance;
+      }, 0)
+    );
+  }, []);
 
   return (
     <div className="Asset">
@@ -87,11 +87,9 @@ const Asset = () => {
 
       <div className="asset">
         <div>
-          <h3 style={{fontWeight: 'normal'}}>계좌</h3>
+          <h3 style={{ fontWeight: "normal" }}>계좌</h3>
           <span className="small-text">{won(accountmoney)}</span>
-
         </div>
-
       </div>
 
       <div className="asset flex-column">
@@ -100,10 +98,20 @@ const Asset = () => {
           if (isShow) {
             let btn = "";
             if (accountType) {
-              btn = <SubButton text={'송금'} handleClick={() => gotoAccountDetail(id)} />
+              btn = (
+                <SubButton
+                  text={"송금"}
+                  handleClick={() => gotoAccountDetail(id)}
+                />
+              );
             }
             return (
-              <Card key={key} title={accountName} subTitle={won(balance)} Child={btn} />
+              <Card
+                key={key}
+                title={accountName}
+                subTitle={won(balance)}
+                Child={btn}
+              />
             );
           }
         })}
@@ -115,10 +123,20 @@ const Asset = () => {
           if (!isShow) {
             let btn = "";
             if (accountType) {
-              btn = <SubButton text={'송금'} handleClick={() => gotoAccountDetail(id)} />
+              btn = (
+                <SubButton
+                  text={"송금"}
+                  handleClick={() => gotoAccountDetail(id)}
+                />
+              );
             }
             return (
-              <Card key={key} title={accountName} subTitle={won(balance)} Child={btn} />
+              <Card
+                key={key}
+                title={accountName}
+                subTitle={won(balance)}
+                Child={btn}
+              />
             );
           }
         })}

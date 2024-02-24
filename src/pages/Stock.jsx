@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import BottomNav from "../components/BottomNav/BottomNav";
 
 const Stock = () => {
@@ -7,7 +7,7 @@ const Stock = () => {
       주식 페이지
       <BottomNav />
     </div>
-  )
-}
+  );
+};
 
-export default Stock
+export default Stock;

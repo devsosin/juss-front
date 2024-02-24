@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import BottomNav from "../components/BottomNav/BottomNav";
 
 const Pay = () => {
@@ -7,7 +7,7 @@ const Pay = () => {
       주스페이 페이지
       <BottomNav />
     </div>
-  )
-}
+  );
+};
 
-export default Pay
+export default Pay;

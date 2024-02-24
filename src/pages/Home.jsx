@@ -66,7 +66,12 @@ const Home = () => {
       <div className="item-container">
         {accounts.map(({ balance, accountName }, id) => {
           return (
-            <Card key={id} title={accountName} subTitle={won(balance)} Child={""} />
+            <Card
+              key={id}
+              title={accountName}
+              subTitle={won(balance)}
+              Child={""}
+            />
           );
         })}
         <hr style={{ border: "0", borderTop: "1px solid #EFEFEF" }} />

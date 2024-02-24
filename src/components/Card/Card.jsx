@@ -12,9 +12,7 @@ const Card = ({ title, subTitle, icon, Child }) => {
           <div className="card-sub">{subTitle}</div>
         </div>
       </div>
-      <div className="right">
-        {Child}
-      </div>
+      <div className="right">{Child}</div>
     </div>
   );
 };
