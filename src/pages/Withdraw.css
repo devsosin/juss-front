@@ -1,0 +1,40 @@
+.with-header > h3 {
+  font-weight: bold;
+  font-size: 24px;
+  margin: 3rem 1rem 1rem;
+  text-align: left;
+}
+
+.account-category-btns {
+  max-width: 85%;
+  margin: 0 auto;
+  background-color: #efefef;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+
+.account-category-btns > div {
+  background-color: transparent !important;
+  flex: 1;
+  color: #787878;
+}
+
+.account-category-btns > div.active {
+  background-color: #fefefe !important;
+  color: #222222;
+}
+
+.recent-box {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.recent-box > div {
+  width: 100%;
+}

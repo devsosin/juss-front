@@ -1,0 +1,32 @@
+.my-accounts {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 3rem 0 1rem;
+}
+
+.my-accounts > span:last-child {
+  color: #787878;
+  font-size: small;
+}
+
+.account-input-box {
+  display: flex;
+  border-bottom: 1px solid #efefef;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.account-input {
+  flex: 1;
+  border: 0;
+  font-size: 16px;
+}
+
+.recent-accounts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}

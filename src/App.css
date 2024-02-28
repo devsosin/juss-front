@@ -11,11 +11,10 @@
   transform: translate(-50%, -50%); */
   margin: 0 auto;
 
-  background-color: #efefef;
+  background-color: #fefefe;
   box-sizing: border-box;
 }
 
 .App > div {
   padding: 1rem;
-  background-color: #efefef;
 }

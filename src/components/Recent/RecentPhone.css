@@ -1,0 +1,25 @@
+.phone-input-box {
+  display: flex;
+  background-color: #efefef;
+  justify-content: flex-start;
+  align-items: center;
+  border-radius: 10px;
+  margin: 1rem 0;
+  padding: 0.5rem;
+  height: 40px;
+  gap: 1rem;
+  box-sizing: border-box;
+}
+.phone-input {
+  flex: 1;
+  border: 0;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+.recent-phones {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}

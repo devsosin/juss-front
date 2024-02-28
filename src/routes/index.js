@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Home from "../pages/Home";
 import Asset from "../pages/Asset";
 import Account from "../pages/Account";
+import Withdraw from "../pages/Withdraw";
 
 import Benefit from "../pages/Benefit";
 import Pay from "../pages/Pay";
@@ -15,6 +16,7 @@ const AllRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/asset" element={<Asset />} />
       <Route path="/account/:id" element={<Account />} />
+      <Route path="/withdraw/:id" element={<Withdraw />} />
 
       {/* 공사중 */}
       <Route path="/benefit" element={<Benefit />} />

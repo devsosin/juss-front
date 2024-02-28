@@ -91,8 +91,15 @@ const Account = ({ id }) => {
       </div>
 
       <div className="account-btns">
-        <BaseButton text={"채우기"} onClick={() => navigate("/withdraw")} />
-        <BaseButton text={"보내기"} />
+        <BaseButton
+          text={"채우기"}
+          // 여기서는 채우기 팝업창이 떠야함
+          handleClick={() => navigate(`/withdraw/${account.id}`)}
+        />
+        <BaseButton
+          text={"보내기"}
+          handleClick={() => navigate(`/withdraw/${account.id}`)}
+        />
       </div>
 
       <div className="account-transaction">

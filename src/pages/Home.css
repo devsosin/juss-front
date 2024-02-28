@@ -1,6 +1,7 @@
 .Home {
   padding-bottom: 60px !important;
   overflow-y: hidden;
+  background-color: #efefef;
 }
 
 .item-container {
@@ -11,7 +12,6 @@
   box-sizing: border-box;
   padding: 2rem;
   margin: 0 auto 1rem;
-  max-width: 85%;
   border-radius: 10px;
 }
 
@@ -20,7 +20,6 @@
   box-sizing: border-box;
   padding: 1rem;
   margin: 0 auto 1rem;
-  max-width: 85%;
   border-radius: 25px;
 
   display: flex;
@@ -30,7 +29,6 @@
 .header {
   display: flex;
   justify-content: space-between;
-  max-width: 85%;
   margin: 1rem auto;
 }
 

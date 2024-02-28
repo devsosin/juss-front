@@ -2,9 +2,9 @@ import React from "react";
 
 import "./BaseButton.css";
 
-const BaseButton = ({ text, handleClick }) => {
+const BaseButton = ({ text, addClass, handleClick }) => {
   return (
-    <div className="BaseButton" onClick={() => handleClick()}>
+    <div className={"BaseButton " + addClass} onClick={() => handleClick()}>
       {text}
     </div>
   );
