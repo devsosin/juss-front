@@ -1,0 +1,16 @@
+.badge-box {
+  border-radius: 10px;
+  background-color: #efefef;
+  color: #787878;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+}
+
+.badge-box.active {
+  background-origin: rgba(92, 137, 255, 0.1);
+  color: #5c89ff;
+}

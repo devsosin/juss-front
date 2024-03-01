@@ -21,7 +21,7 @@
   margin-top: 1rem;
 }
 
-.menu-bar > div {
+.menu-bar.asset > div {
   width: 30%;
   height: 36px;
 }

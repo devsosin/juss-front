@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { FaCamera, FaAngleRight } from "react-icons/fa";
 
@@ -7,7 +8,41 @@ import Favorite from "../Card/Favorite";
 
 import "./RecentAccount.css";
 
-const RecentAccount = ({ recentAccounts }) => {
+const RecentAccount = ({ id }) => {
+  const navigate = useNavigate();
+
+  const [recentAccounts, setRecentAccounts] = useState([]);
+
+  // id를 통해 가져오기
+  useEffect(() => {
+    setRecentAccounts([
+      {
+        id: "abasdfasdf",
+        accountName: "최재진 (소신)",
+        bankName: "KB국민",
+        accountNumber: "28350104539502",
+        isFavorite: false,
+        isOwn: false,
+      },
+      {
+        id: "abasdfasdfasdfasdf",
+        accountName: "네이버페이 하나통장",
+        bankName: "하나",
+        accountNumber: "15391061187307",
+        isFavorite: false,
+        isOwn: true,
+      },
+      {
+        id: "dkjdclif",
+        accountName: "수빈 (박*빈)",
+        bankName: "",
+        accountNumber: "010-2341-1234",
+        isFavorite: true,
+        isOwn: false,
+      },
+    ]);
+  }, [id]);
+
   return (
     <>
       <div className="account-input-box">
@@ -32,7 +67,7 @@ const RecentAccount = ({ recentAccounts }) => {
 
           {recentAccounts.map(
             ({
-              id,
+              rid,
               bankName,
               accountName,
               accountNumber,
@@ -41,10 +76,11 @@ const RecentAccount = ({ recentAccounts }) => {
             }) => {
               return (
                 <SecondCard
-                  key={id}
+                  key={rid}
                   title={`${isOwn ? "내" : ""} ${accountName}`}
                   subTitle={`${bankName} ${accountNumber}`}
                   Child={<Favorite isFavorite={isFavorite} />}
+                  handleClick={() => navigate(`/transfer/${id}/${rid}`)}
                 />
               );
             }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaAngleDown } from "react-icons/fa";
@@ -7,6 +7,8 @@ import { CopyToClipboard } from "react-copy-to-clipboard/src";
 
 import SecondCard from "../components/Card/SecondCard";
 import BaseButton from "../components/Button/BaseButton";
+import Modal from "../components/Modal/Modal";
+import Deposit from "../components/Deposit/Deposit";
 
 import { won } from "../utils/currency";
 
@@ -15,6 +17,7 @@ import Balance from "../components/Card/Balance";
 
 const Account = ({ id }) => {
   const navigate = useNavigate();
+  const [showDeposit, setShowDeposit] = useState(false);
 
   const account = {
     id: "lksdjflaskdf",
@@ -94,7 +97,7 @@ const Account = ({ id }) => {
         <BaseButton
           text={"채우기"}
           // 여기서는 채우기 팝업창이 떠야함
-          handleClick={() => navigate(`/withdraw/${account.id}`)}
+          handleClick={() => setShowDeposit(true)}
         />
         <BaseButton
           text={"보내기"}
@@ -147,6 +150,14 @@ const Account = ({ id }) => {
         })}
         {/* 반복문 끝 */}
       </div>
+
+      {showDeposit ? (
+        <Modal handleModal={() => setShowDeposit(false)}>
+          <Deposit />
+        </Modal>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

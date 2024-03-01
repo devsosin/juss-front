@@ -71,7 +71,7 @@ const Asset = () => {
         <button>편집</button>
       </div>
 
-      <div className="menu-bar">
+      <div className="menu-bar asset">
         <div className="active">자산</div>
         <div>자산 굴리기</div>
         <div>대출 찾기</div>

@@ -9,6 +9,8 @@ import Benefit from "../pages/Benefit";
 import Pay from "../pages/Pay";
 import Stock from "../pages/Stock";
 import Menu from "../pages/Menu";
+import Expense from "../pages/Expense";
+import Transfer from "../pages/Transfer";
 
 const AllRoutes = () => {
   return (
@@ -17,6 +19,8 @@ const AllRoutes = () => {
       <Route path="/asset" element={<Asset />} />
       <Route path="/account/:id" element={<Account />} />
       <Route path="/withdraw/:id" element={<Withdraw />} />
+      <Route path="/expense" element={<Expense />} />
+      <Route path="/transfer/:fromId/:toId" element={<Transfer />} />
 
       {/* 공사중 */}
       <Route path="/benefit" element={<Benefit />} />

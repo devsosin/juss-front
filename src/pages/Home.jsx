@@ -1,17 +1,19 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { FaAngleDown, FaBell } from "react-icons/fa";
 
 import BottomNav from "../components/BottomNav/BottomNav";
 import Card from "../components/Card/Card";
+import SubButton from "../components/Button/SubButton";
 
 import "./Home.css";
 
 import { won } from "../utils/currency";
 
 const Home = () => {
+  const navigate = useNavigate();
   const accounts = [
     {
       id: "asdfdsf",
@@ -74,7 +76,7 @@ const Home = () => {
             />
           );
         })}
-        <hr style={{ border: "0", borderTop: "1px solid #EFEFEF" }} />
+        <hr style={{ border: 0, borderTop: "1px solid #EFEFEF", margin: 0 }} />
         <Link
           style={{
             cursor: "pointer",
@@ -91,7 +93,9 @@ const Home = () => {
         <Card
           title={"이번 달 쓴 금액"}
           subTitle={won(expense.totalUsed)}
-          Child={"button"}
+          Child={
+            <SubButton text={"내역"} handleClick={() => navigate("/expense")} />
+          }
         />
         <Card
           title={`${expense.toPay.date} 낼 카드값`}
