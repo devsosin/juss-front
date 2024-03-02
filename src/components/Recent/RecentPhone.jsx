@@ -8,7 +8,7 @@ import Favorite from "../Card/Favorite";
 
 import "./RecentPhone.css";
 
-const RecentPhone = ({ id }) => {
+const RecentPhone = ({ fromId }) => {
   const navigate = useNavigate();
   const [recentPhones, setRecentPhones] = useState([]);
   // id를 통해 가져오기
@@ -48,7 +48,7 @@ const RecentPhone = ({ id }) => {
         isOwn: false,
       },
     ]);
-  }, [id]);
+  }, [fromId]);
 
   return (
     <>
@@ -62,21 +62,14 @@ const RecentPhone = ({ id }) => {
       </div>
       <div className="recent-phones">
         {recentPhones.map(
-          ({
-            rid,
-            accountName,
-            accountNumber,
-            bankName,
-            isFavorite,
-            isOwn,
-          }) => {
+          ({ id, accountName, accountNumber, bankName, isFavorite, isOwn }) => {
             return (
               <SecondCard
                 key={id}
                 title={`${isOwn ? "내" : ""} ${accountName}`}
                 subTitle={`${bankName} ${accountNumber}`}
                 Child={<Favorite isFavorite={isFavorite} />}
-                handleClick={() => navigate(`/transfer/${id}/${rid}`)}
+                handleClick={() => navigate(`/transfer/${fromId}/${id}`)}
               />
             );
           }

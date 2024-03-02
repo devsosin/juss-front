@@ -42,7 +42,7 @@ const Withdraw = () => {
         />
       </div>
       <div className="recent-box">
-        {category ? <RecentAccount id={id} /> : <RecentPhone id={id} />}
+        {category ? <RecentAccount fromId={id} /> : <RecentPhone fromId={id} />}
       </div>
     </div>
   );

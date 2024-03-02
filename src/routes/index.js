@@ -11,6 +11,7 @@ import Stock from "../pages/Stock";
 import Menu from "../pages/Menu";
 import Expense from "../pages/Expense";
 import Transfer from "../pages/Transfer";
+import Confirm from "../pages/Confirm";
 
 const AllRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AllRoutes = () => {
       <Route path="/withdraw/:id" element={<Withdraw />} />
       <Route path="/expense" element={<Expense />} />
       <Route path="/transfer/:fromId/:toId" element={<Transfer />} />
+      <Route path="/confirm" element={<Confirm />} />
 
       {/* 공사중 */}
       <Route path="/benefit" element={<Benefit />} />

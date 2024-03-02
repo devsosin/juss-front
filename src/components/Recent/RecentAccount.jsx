@@ -8,7 +8,7 @@ import Favorite from "../Card/Favorite";
 
 import "./RecentAccount.css";
 
-const RecentAccount = ({ id }) => {
+const RecentAccount = ({ fromId }) => {
   const navigate = useNavigate();
 
   const [recentAccounts, setRecentAccounts] = useState([]);
@@ -41,7 +41,7 @@ const RecentAccount = ({ id }) => {
         isOwn: false,
       },
     ]);
-  }, [id]);
+  }, [fromId]);
 
   return (
     <>
@@ -67,7 +67,7 @@ const RecentAccount = ({ id }) => {
 
           {recentAccounts.map(
             ({
-              rid,
+              id,
               bankName,
               accountName,
               accountNumber,
@@ -76,11 +76,11 @@ const RecentAccount = ({ id }) => {
             }) => {
               return (
                 <SecondCard
-                  key={rid}
+                  key={id}
                   title={`${isOwn ? "내" : ""} ${accountName}`}
                   subTitle={`${bankName} ${accountNumber}`}
                   Child={<Favorite isFavorite={isFavorite} />}
-                  handleClick={() => navigate(`/transfer/${id}/${rid}`)}
+                  handleClick={() => navigate(`/transfer/${fromId}/${id}`)}
                 />
               );
             }

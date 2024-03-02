@@ -1,0 +1,68 @@
+.transfer-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.transfer-info > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: flex-start;
+  margin: 1.5rem 1rem;
+}
+
+.transfer-info span {
+  font-weight: bold;
+}
+
+.transfer-amount {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 1rem;
+}
+
+.transfer-amount > input {
+  border: 0;
+  font-size: 24px;
+}
+.absolute-box {
+  position: absolute;
+  width: 100%;
+  margin: 0;
+  bottom: 0;
+  box-sizing: border-box;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0%);
+}
+.transfer-balance {
+  display: flex;
+  justify-content: flex-start;
+  margin: 1rem;
+}
+.transfer-balance > .balance-btn {
+  height: 40px;
+  background-color: #efefef;
+  padding: 0.5rem;
+  border-radius: 10px;
+}
+
+.next-btn {
+  background-color: #5c89ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 100%;
+  font-weight: bold;
+  color: white;
+}
+
+.show {
+  display: flex;
+}
+.hide {
+  display: none;
+}

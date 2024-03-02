@@ -2,9 +2,9 @@ import React from "react";
 
 import "./SubButton.css";
 
-const SubButton = ({ text, handleClick }) => {
+const SubButton = ({ text, addClass, handleClick }) => {
   return (
-    <div className="SubButton" onClick={() => handleClick()}>
+    <div className={"SubButton " + addClass} onClick={() => handleClick()}>
       {text}
     </div>
   );
