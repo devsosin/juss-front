@@ -1,0 +1,25 @@
+.start-bg {
+  height: 100%;
+  display: flex;
+  background: no-repeat center url("./bg.png");
+
+  justify-content: center;
+  align-items: center;
+  padding: 0 !important;
+}
+
+.start-bg > div {
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 2rem 5rem;
+  box-sizing: border-box;
+}
+
+.start-bg > div > div {
+  flex: 1;
+  height: 48px;
+}
