@@ -32,13 +32,15 @@ const Transfer = () => {
       accountName: "KB마이핏통장",
       bankName: "KB국민",
       accountNumber: "70100200140450",
+      userId: 0,
     });
     setToAccount({
       id: "",
       accountName: "최재진(소신)",
       bankName: "KB국민",
       accountNumber: "283501-04-539502",
-      accountType: "account",
+      accountType: 0,
+      userId: 0,
     });
   }, [fromId, toId]);
 
@@ -133,6 +135,7 @@ const Transfer = () => {
           <TransferConfirm
             fromAccount={fromAccount}
             toAccount={toAccount}
+            isFill={fromAccount.userId === toAccount.userId}
             amount={parseInt(amount.replace(/\D/g, ""))}
             sendMoney={sendMoney}
           />
@@ -146,6 +149,7 @@ const Transfer = () => {
           <TransferIng
             fromAccount={fromAccount}
             toAccount={toAccount}
+            isFill={fromAccount.userId === toAccount.userId}
             amount={parseInt(amount.replace(/\D/g, ""))}
           />
         </Modal>
@@ -157,6 +161,7 @@ const Transfer = () => {
           <TransferComplete
             fromAccount={fromAccount}
             toAccount={toAccount}
+            isFill={fromAccount.userId === toAccount.userId}
             amount={parseInt(amount.replace(/\D/g, ""))}
           />
         </Modal>

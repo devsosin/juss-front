@@ -54,6 +54,10 @@ const Home = () => {
       amount: 1000,
     },
   };
+
+  const gotoAccountDetail = (id) => {
+    navigate(`/account/${id}`);
+  };
   return (
     <div className="Home">
       <div className="header">
@@ -73,6 +77,7 @@ const Home = () => {
               title={accountName}
               subTitle={won(balance)}
               Child={""}
+              handleClick={() => gotoAccountDetail(id)}
             />
           );
         })}

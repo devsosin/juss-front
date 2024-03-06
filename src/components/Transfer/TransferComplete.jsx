@@ -10,7 +10,7 @@ import { won } from "../../utils/currency";
 
 import "./TransferComplete.css";
 
-const TransferComplete = ({ fromAccount, toAccount, amount }) => {
+const TransferComplete = ({ fromAccount, toAccount, isFill, amount }) => {
   const navigate = useNavigate();
 
   return (
@@ -18,9 +18,11 @@ const TransferComplete = ({ fromAccount, toAccount, amount }) => {
       <div>
         <FaFlagCheckered size={140} />
         <div>
-          <div>{toAccount.accountName}님에게</div>
+          <div>{`${isFill ? "내 " : ""} ${toAccount.accountName} ${
+            isFill ? "로" : "님에게"
+          }`}</div>
           <div>{won(amount)}을</div>
-          <div>보냈어요</div>
+          <div>{`${isFill ? "채웠" : "보냈"}어요`}</div>
         </div>
         <div>
           <SubButton text={"메모 남기기"} addClass={"memo-btn"} />

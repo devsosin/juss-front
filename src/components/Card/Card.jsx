@@ -2,9 +2,9 @@ import React from "react";
 
 import "./Card.css";
 
-const Card = ({ title, subTitle, icon, Child }) => {
+const Card = ({ title, subTitle, icon, Child, handleClick }) => {
   return (
-    <div className="Card">
+    <div className="Card" onClick={() => (handleClick ? handleClick() : null)}>
       <div className="left">
         <div>{icon}</div>
         <div>

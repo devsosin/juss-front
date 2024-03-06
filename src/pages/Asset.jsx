@@ -77,7 +77,7 @@ const Asset = () => {
         <div>대출 찾기</div>
       </div>
 
-      <div className="asset">
+      <div className="asset-info">
         <div>
           <h3>총 자산</h3>
           <span>{won(totalMoney)}</span>
@@ -85,14 +85,14 @@ const Asset = () => {
         <BaseButton text={"분석"} />
       </div>
 
-      <div className="asset">
+      <div className="asset-info">
         <div>
           <h3 style={{ fontWeight: "normal" }}>계좌</h3>
           <span className="small-text">{won(accountmoney)}</span>
         </div>
       </div>
 
-      <div className="asset flex-column">
+      <div className="asset-info flex-column">
         <h3 className="sub-text">입출금</h3>
         {datas.map(({ balance, accountName, isShow, accountType, id }, key) => {
           if (isShow) {
@@ -117,7 +117,7 @@ const Asset = () => {
         })}
       </div>
 
-      <div className="asset flex-column">
+      <div className="asset-info flex-column">
         <h3 className="sub-text">숨긴 계좌</h3>
         {datas.map(({ balance, accountName, isShow, id, accountType }, key) => {
           if (!isShow) {

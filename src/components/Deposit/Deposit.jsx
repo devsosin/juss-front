@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./Deposit.css";
 
@@ -6,7 +7,9 @@ import Card from "../Card/Card";
 
 import { won } from "../../utils/currency";
 
-const Deposit = () => {
+const Deposit = ({ toId }) => {
+  const navigate = useNavigate();
+
   const [myAccounts, setMyAccounts] = useState([]);
 
   // 내 계좌 제외
@@ -66,6 +69,7 @@ const Deposit = () => {
               title={accountName}
               subTitle={won(balance)}
               Child={""}
+              handleClick={() => navigate(`/transfer/${id}/${toId}`)}
             />
           );
         })}

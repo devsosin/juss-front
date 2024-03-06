@@ -6,18 +6,26 @@ import BaseButton from "../Button/BaseButton";
 
 import { won } from "../../utils/currency";
 
-const TransferConfirm = ({ fromAccount, toAccount, amount, sendMoney }) => {
+const TransferConfirm = ({
+  fromAccount,
+  toAccount,
+  isFill,
+  amount,
+  sendMoney,
+}) => {
   return (
     <div className="tr-confirm">
       <div>
         <div>
+          {/* 내것인지 확인 */}
           <span className="highlight">{toAccount.accountName}</span>님에게
         </div>
         <div>{won(amount)}을</div>
-        <div>보낼까요?</div>
+        <div>{`${isFill ? "채울" : "보낼"}까요?`}</div>
       </div>
       <div className="tr-info">
         <div>
+          {/* 내 이름? */}
           <div>받는 분에게 표시</div> <div>{"최재진"}</div>
         </div>
         <div>
@@ -25,9 +33,7 @@ const TransferConfirm = ({ fromAccount, toAccount, amount, sendMoney }) => {
         </div>
         <div>
           <div>
-            {toAccount.accountType === "account"
-              ? "입금 계좌"
-              : "입금할 연락처"}
+            {toAccount.accountType === 2 ? "입금할 연락처" : "입금 계좌"}
           </div>
           <div>{`${toAccount.bankName} ${toAccount.accountNumber}`}</div>
         </div>
