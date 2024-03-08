@@ -22,7 +22,7 @@ const AllRoutes = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/" element={<Home />} />
         <Route path="/asset" element={<Asset />} />
-        <Route path="/account/:id" element={<Account />} />
+        <Route path="/account/:accountId" element={<Account />} />
         <Route path="/withdraw/:id" element={<Withdraw />} />
         <Route path="/expense" element={<Expense />} />
         <Route path="/transfer/:fromId/:toId" element={<Transfer />} />

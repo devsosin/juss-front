@@ -6,6 +6,7 @@ import "./Deposit.css";
 import Card from "../Card/Card";
 
 import { won } from "../../utils/currency";
+import axios from "axios";
 
 const Deposit = ({ toId }) => {
   const navigate = useNavigate();
@@ -14,38 +15,22 @@ const Deposit = ({ toId }) => {
 
   // 내 계좌 제외
   useEffect(() => {
-    setMyAccounts([
-      {
-        id: "asdfdsf",
-        balance: 93305,
-        isShow: true,
-        accountName: "KB마이핏통장",
+    axios({
+      url: "http://localhost:8080/api/v1/accounts",
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
       },
-      {
-        id: "asdfdsf",
-        balance: 93305,
-        isShow: false,
-        accountName: "신협",
-      },
-      {
-        id: "asdfdsf",
-        balance: 302305,
-        isShow: true,
-        accountName: "커플통장",
-      },
-      {
-        id: "asdfdsf",
-        balance: 172305,
-        isShow: true,
-        accountName: "하나은행네이버페이통장",
-      },
-      {
-        id: "asdfdsf",
-        balance: 3000000,
-        isShow: true,
-        accountName: "청년내일저축계좌",
-      },
-    ]);
+    })
+      .then((res) =>
+        setMyAccounts(
+          res.data.accounts.filter((v) => v.id !== toId && v.account_type === 0)
+        )
+      )
+      .catch((e) => {
+        localStorage.setItem("jwt-token", null);
+        navigate("/start");
+      });
   }, []);
 
   return (
@@ -62,11 +47,11 @@ const Deposit = ({ toId }) => {
       <h3>어떤 계좌에서 돈을 가져올까요?</h3>
 
       <div className="my-account-list">
-        {myAccounts.map(({ balance, accountName, id }) => {
+        {myAccounts.map(({ balance, account_name, id }) => {
           return (
             <Card
               key={id}
-              title={accountName}
+              title={account_name}
               subTitle={won(balance)}
               Child={""}
               handleClick={() => navigate(`/transfer/${id}/${toId}`)}

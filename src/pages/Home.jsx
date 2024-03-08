@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -12,40 +12,56 @@ import "./Home.css";
 
 import { won } from "../utils/currency";
 
+import axios from "axios";
+
 const Home = () => {
   const navigate = useNavigate();
-  const accounts = [
-    {
-      id: "asdfdsf",
-      balance: 93305,
-      isShow: true,
-      accountName: "KB마이핏통장",
-    },
-    {
-      id: "asdfdsf",
-      balance: 93305,
-      isShow: false,
-      accountName: "신협",
-    },
-    {
-      id: "asdfdsf",
-      balance: 302305,
-      isShow: true,
-      accountName: "커플통장",
-    },
-    {
-      id: "asdfdsf",
-      balance: 172305,
-      isShow: true,
-      accountName: "하나은행네이버페이통장",
-    },
-    {
-      id: "asdfdsf",
-      balance: 3000000,
-      isShow: true,
-      accountName: "청년내일저축계좌",
-    },
-  ];
+
+  const [accounts, setAccounts] = useState([]);
+  const [totalUsed, setTotalUsed] = useState(0);
+  const [toPay, setToPay] = useState({});
+
+  useEffect(() => {
+    // axiosInterceptor
+    axios({
+      url: "http://localhost:8080/api/v1/accounts?isShow=true",
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+      },
+    })
+      .then((res) => setAccounts(res.data.accounts))
+      .catch((e) => {
+        localStorage.setItem("jwt-token", null);
+        navigate("/start");
+      });
+
+    axios({
+      url: "http://localhost:8080/api/v1/used",
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+      },
+    })
+      .then((res) => setTotalUsed(res.data.amount))
+      .catch((e) => {
+        localStorage.setItem("jwt-token", null);
+        navigate("/start");
+      });
+
+    axios({
+      url: "http://localhost:8080/api/v1/topay",
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+      },
+    })
+      .then((res) => setToPay(res.data.topay))
+      .catch((e) => {
+        localStorage.setItem("jwt-token", null);
+        navigate("/start");
+      });
+  }, []);
 
   const expense = {
     totalUsed: 123600,
@@ -55,9 +71,6 @@ const Home = () => {
     },
   };
 
-  const gotoAccountDetail = (id) => {
-    navigate(`/account/${id}`);
-  };
   return (
     <div className="Home">
       <div className="header">
@@ -70,14 +83,14 @@ const Home = () => {
         </div>
       </div>
       <div className="item-container">
-        {accounts.map(({ balance, accountName }, id) => {
+        {accounts.map(({ id, balance, account_name }) => {
           return (
             <Card
               key={id}
-              title={accountName}
+              title={account_name}
               subTitle={won(balance)}
               Child={""}
-              handleClick={() => gotoAccountDetail(id)}
+              handleClick={() => navigate(`/account/${id}`)}
             />
           );
         })}
@@ -97,14 +110,14 @@ const Home = () => {
       <div className="item-container">
         <Card
           title={"이번 달 쓴 금액"}
-          subTitle={won(expense.totalUsed)}
+          subTitle={won(totalUsed)}
           Child={
             <SubButton text={"내역"} handleClick={() => navigate("/expense")} />
           }
         />
         <Card
-          title={`${expense.toPay.date} 낼 카드값`}
-          subTitle={won(expense.toPay.amount)}
+          title={`${toPay.date} 낼 카드값`}
+          subTitle={won(toPay.amount)}
           Child={""}
         />
       </div>

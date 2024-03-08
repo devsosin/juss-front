@@ -4,7 +4,10 @@ import "./SecondCard.css";
 
 const SecondCard = ({ title, subTitle, icon, Child, handleClick }) => {
   return (
-    <div className="Card-second" onClick={() => handleClick()}>
+    <div
+      className="Card-second"
+      onClick={() => (handleClick ? handleClick() : null)}
+    >
       <div className="left">
         <div>{icon}</div>
         <div>
