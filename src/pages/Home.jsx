@@ -63,12 +63,8 @@ const Home = () => {
       });
   }, []);
 
-  const expense = {
-    totalUsed: 123600,
-    toPay: {
-      date: "02-12",
-      amount: 1000,
-    },
+  const gotoAccountDetail = (id) => {
+    navigate(`/account/${id}`);
   };
 
   return (
@@ -83,13 +79,22 @@ const Home = () => {
         </div>
       </div>
       <div className="item-container">
-        {accounts.map(({ id, balance, account_name }) => {
+        {accounts.map(({ id, balance, account_name, account_type }) => {
+          let btn = "";
+          if (account_type === 0) {
+            btn = (
+              <SubButton
+                text={"송금"}
+                handleClick={() => gotoAccountDetail(id)}
+              />
+            );
+          }
           return (
             <Card
               key={id}
               title={account_name}
               subTitle={won(balance)}
-              Child={""}
+              Child={btn}
               handleClick={() => navigate(`/account/${id}`)}
             />
           );

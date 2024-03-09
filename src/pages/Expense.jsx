@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FaArrowLeft,
@@ -13,49 +13,37 @@ import CardExpense from "../components/CardExpense/CardExpense";
 import "./Expense.css";
 
 import { won } from "../utils/currency";
+import axios from "axios";
 
 const Expense = () => {
   const navigate = useNavigate();
 
-  const [month, setMonth] = useState(Date.now().month);
-  const [expenseData, setExpenseData] = useState({});
+  const now = new Date();
+
+  const [ym, setYm] = useState(
+    `${now.getFullYear()}${now.getMonth().toString().padStart(2, "0")}`
+  );
+  const [expense, setExpense] = useState(0);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    // get month expense
-    setExpenseData({
-      totalExpense: 1954630,
-      cards: [
-        {
-          id: "aksdjc38",
-          cardType: "신용",
-          cardName: "네이버 현대카드",
-          expense: 357600,
-          performanceTarget: 300000,
-        },
-        {
-          id: "aksdjcduchs",
-          cardType: "신용",
-          cardName: "신협 HI-POINT",
-          expense: 45000,
-          performanceTarget: null,
-        },
-        {
-          id: "djcudjc22",
-          cardType: "체크",
-          cardName: "네이버 현대카드",
-          expense: 357600,
-          performanceTarget: null,
-        },
-        {
-          id: "ajcuajc37",
-          cardType: "체크",
-          cardName: "신협 HI-POINT",
-          expense: 1000,
-          performanceTarget: 250000,
-        },
-      ],
-    });
-  }, []);
+    axios({
+      url: `http://localhost:8080/api/v1/cards?ym=${ym}`,
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+      },
+    })
+      .then((res) => setCards(res.data.cards))
+      .catch((e) => {
+        localStorage.setItem("jwt-token", null);
+        navigate("/start");
+      });
+  }, [ym]);
+
+  useMemo(() => {
+    setExpense(cards.reduce((acc, v) => acc + v.amount, 0));
+  }, [cards]);
 
   return (
     <div>
@@ -76,10 +64,11 @@ const Expense = () => {
         <div>
           <span>
             {/* active */}
-            <FaCaretLeft size={12} /> 2월 소비 <FaCaretRight size={12} />
+            <FaCaretLeft size={12} /> {ym.slice(4, 6)}월 소비{" "}
+            <FaCaretRight size={12} />
           </span>
           <h3>
-            {won(expenseData.totalExpense)} <FaAngleDown size={12} />
+            {won(expense)} <FaAngleDown size={12} />
           </h3>
         </div>
         <div>
@@ -90,16 +79,12 @@ const Expense = () => {
       <div className="card-expense">
         <CardExpense
           title={"신용카드"}
-          cards={expenseData?.cards?.filter(
-            ({ cardType }) => cardType === "신용"
-          )}
+          cards={cards?.filter(({ is_credit }) => is_credit)}
         />
 
         <CardExpense
           title={"체크카드"}
-          cards={expenseData?.cards?.filter(
-            ({ cardType }) => cardType === "체크"
-          )}
+          cards={cards?.filter(({ is_credit }) => !is_credit)}
         />
       </div>
     </div>

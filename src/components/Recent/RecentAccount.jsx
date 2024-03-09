@@ -7,6 +7,7 @@ import SecondCard from "../Card/SecondCard";
 import Favorite from "../Card/Favorite";
 
 import "./RecentAccount.css";
+import axios from "axios";
 
 const RecentAccount = ({ fromId }) => {
   const navigate = useNavigate();
@@ -15,32 +16,18 @@ const RecentAccount = ({ fromId }) => {
 
   // id를 통해 가져오기
   useEffect(() => {
-    setRecentAccounts([
-      {
-        id: "abasdfasdf",
-        accountName: "최재진 (소신)",
-        bankName: "KB국민",
-        accountNumber: "28350104539502",
-        isFavorite: false,
-        isOwn: false,
+    axios({
+      url: "http://localhost:8080/api/v1/recent?type=0",
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
       },
-      {
-        id: "abasdfasdfasdfasdf",
-        accountName: "네이버페이 하나통장",
-        bankName: "하나",
-        accountNumber: "15391061187307",
-        isFavorite: false,
-        isOwn: true,
-      },
-      {
-        id: "dkjdclif",
-        accountName: "수빈 (박*빈)",
-        bankName: "",
-        accountNumber: "010-2341-1234",
-        isFavorite: true,
-        isOwn: false,
-      },
-    ]);
+    })
+      .then((res) => setRecentAccounts(res.data.accounts))
+      .catch((e) => {
+        localStorage.setItem("jwt-token", null);
+        navigate("/start");
+      });
   }, [fromId]);
 
   return (
@@ -68,18 +55,18 @@ const RecentAccount = ({ fromId }) => {
           {recentAccounts.map(
             ({
               id,
-              bankName,
-              accountName,
-              accountNumber,
-              isFavorite,
-              isOwn,
+              bank_name,
+              account_name,
+              account_number,
+              is_favorite,
+              is_own,
             }) => {
               return (
                 <SecondCard
                   key={id}
-                  title={`${isOwn ? "내" : ""} ${accountName}`}
-                  subTitle={`${bankName} ${accountNumber}`}
-                  Child={<Favorite isFavorite={isFavorite} />}
+                  title={`${is_own ? "내" : ""} ${account_name}`}
+                  subTitle={`${bank_name} ${account_number}`}
+                  Child={<Favorite id={id} isFavorite={is_favorite} />}
                   handleClick={() => navigate(`/transfer/${fromId}/${id}`)}
                 />
               );

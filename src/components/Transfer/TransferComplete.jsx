@@ -18,7 +18,7 @@ const TransferComplete = ({ fromAccount, toAccount, isFill, amount }) => {
       <div>
         <FaFlagCheckered size={140} />
         <div>
-          <div>{`${isFill ? "내 " : ""} ${toAccount.accountName} ${
+          <div>{`${isFill ? "내 " : ""} ${toAccount.account_name} ${
             isFill ? "로" : "님에게"
           }`}</div>
           <div>{won(amount)}을</div>

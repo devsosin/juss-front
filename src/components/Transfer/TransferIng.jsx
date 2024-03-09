@@ -12,7 +12,7 @@ const TransferIng = ({ toAccount, isFill, amount }) => {
     <div className="tr-ing">
       <div>
         <FaSpinner className="spinner" size={140} />
-        <div>{`${isFill ? "내 " : ""}${toAccount.accountName}으로`}</div>
+        <div>{`${isFill ? "내 " : ""}${toAccount.account_name}으로`}</div>
         <div>{`${won(amount)}을`}</div>
         <div>{`${isFill ? "채울" : "보낼"}게요`}</div>
       </div>

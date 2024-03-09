@@ -18,7 +18,7 @@ const TransferConfirm = ({
       <div>
         <div>
           {/* 내것인지 확인 */}
-          <span className="highlight">{toAccount.accountName}</span>님에게
+          <span className="highlight">{toAccount.account_name}</span>님에게
         </div>
         <div>{won(amount)}을</div>
         <div>{`${isFill ? "채울" : "보낼"}까요?`}</div>
@@ -26,16 +26,16 @@ const TransferConfirm = ({
       <div className="tr-info">
         <div>
           {/* 내 이름? */}
-          <div>받는 분에게 표시</div> <div>{"최재진"}</div>
+          <div>받는 분에게 표시</div> <div>{""}</div>
         </div>
         <div>
-          <div>출금 계좌</div> <div>{`내 ${fromAccount.accountName}`}</div>
+          <div>출금 계좌</div> <div>{`내 ${fromAccount.account_name}`}</div>
         </div>
         <div>
           <div>
-            {toAccount.accountType === 2 ? "입금할 연락처" : "입금 계좌"}
+            {toAccount.account_type === 2 ? "입금할 연락처" : "입금 계좌"}
           </div>
-          <div>{`${toAccount.bankName} ${toAccount.accountNumber}`}</div>
+          <div>{`${toAccount.bank_name} ${toAccount.account_number}`}</div>
         </div>
         <div>
           <BaseButton

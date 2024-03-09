@@ -12,37 +12,48 @@ import "./Transfer.css";
 
 import { won } from "../utils/currency";
 import Modal from "../components/Modal/Modal";
+import axios from "axios";
 
 const Transfer = () => {
   const navigate = useNavigate();
   const { fromId, toId } = useParams();
   const [fromAccount, setFromAccount] = useState({});
   const [toAccount, setToAccount] = useState({});
-  const [amount, setAmount] = useState("");
 
+  const [amount, setAmount] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
   const [showIng, setShowIng] = useState(false);
   const [showComplete, setShowComplete] = useState(false);
 
   useEffect(() => {
-    // 가져오기?
-    setFromAccount({
-      id: "lksdjflaskdf",
-      balance: 93305,
-      accountName: "KB마이핏통장",
-      bankName: "KB국민",
-      accountNumber: "70100200140450",
-      userId: 0,
-    });
-    setToAccount({
-      id: "",
-      accountName: "최재진(소신)",
-      bankName: "KB국민",
-      accountNumber: "283501-04-539502",
-      accountType: 0,
-      userId: 0,
-    });
-  }, [fromId, toId]);
+    axios({
+      url: `http://localhost:8080/api/v1/account/${fromId}`,
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+      },
+    })
+      .then((res) => setFromAccount(res.data))
+      .catch((e) => {
+        localStorage.setItem("jwt-token", null);
+        navigate("/start");
+      });
+  }, [fromId]);
+
+  useEffect(() => {
+    axios({
+      url: `http://localhost:8080/api/v1/account/${toId}`,
+      method: "get",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+      },
+    })
+      .then((res) => setToAccount(res.data))
+      .catch((e) => {
+        localStorage.setItem("jwt-token", null);
+        navigate("/start");
+      });
+  }, [toId]);
 
   const changeAmount = (v) => {
     let res = amount.replace(/\D/g, "");
@@ -65,15 +76,28 @@ const Transfer = () => {
   };
 
   const sendMoney = () => {
-    // show ing
-    // finished -> complete
     setShowConfirm(false);
     setShowIng(true);
+
     // send data
-    setTimeout(() => {
-      setShowComplete(true);
-      setShowIng(false);
-    }, 7000);
+    axios({
+      url: "http://127.0.0.1:8080/api/v1/transfer",
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
+      },
+      data: {
+        sender_id: fromAccount.id,
+        receiver_id: toAccount.id,
+        amount: amount.replace(/\D/g, ""),
+        memo: "",
+      },
+    }).then(() => {
+      setTimeout(() => {
+        setShowComplete(true);
+        setShowIng(false);
+      }, 1000);
+    });
   };
 
   return (
@@ -89,16 +113,17 @@ const Transfer = () => {
       <div className="transfer-info">
         <div className="transfer-from">
           <div>
-            <span>{`내 ${fromAccount.accountName}`}</span>에서
+            <span>{`내 ${fromAccount.account_name}`}</span>에서
           </div>
           <div>{`잔액 ${won(fromAccount.balance)}`}</div>
         </div>
 
         <div className="transfer-to">
           <div>
-            <span>{`${toAccount.accountName}`}</span>님에게
+            {/* 내 계좌일 수도 있음 */}
+            <span>{`${toAccount.account_name}`}</span>님에게
           </div>
-          <div>{`${toAccount.bankName} ${toAccount.accountNumber}`}</div>
+          <div>{`${toAccount.bank_name} ${toAccount.account_number}`}</div>
         </div>
       </div>
 
@@ -135,7 +160,7 @@ const Transfer = () => {
           <TransferConfirm
             fromAccount={fromAccount}
             toAccount={toAccount}
-            isFill={fromAccount.userId === toAccount.userId}
+            isFill={fromAccount.user_id === toAccount.user_id}
             amount={parseInt(amount.replace(/\D/g, ""))}
             sendMoney={sendMoney}
           />

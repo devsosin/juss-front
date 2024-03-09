@@ -55,7 +55,10 @@ const Account = () => {
     }).then((res) => {
       let nowBalance = account.balance;
       const data = res.data.transactions.reduce((acc, v, i) => {
-        const haveDate = acc.filter(({ date }) => date === v.created_at);
+        const haveDate = acc.filter(
+          ({ date }) =>
+            date.slice(0, 3).join("") === v.created_at.slice(0, 3).join("")
+        );
         if (i === 0) {
           nowBalance = account.balance;
         } else {
@@ -71,7 +74,7 @@ const Account = () => {
         };
 
         if (haveDate.length !== 0) {
-          acc[acc.length - 1].trs.add(tr);
+          acc[acc.length - 1].trs.push(tr);
         } else {
           acc.push({ date: v.created_at, trs: [tr] });
         }
@@ -186,7 +189,7 @@ const Account = () => {
 
       {showDeposit ? (
         <Modal handleModal={() => setShowDeposit(false)}>
-          <Deposit />
+          <Deposit toId={accountId} />
         </Modal>
       ) : (
         ""
