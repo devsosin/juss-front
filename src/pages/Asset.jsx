@@ -96,6 +96,7 @@ const Asset = () => {
                   title={account_name}
                   subTitle={won(balance)}
                   Child={btn}
+                  handleClick={() => gotoAccountDetail(id)}
                 />
               );
             }
@@ -123,6 +124,7 @@ const Asset = () => {
                   title={account_name}
                   subTitle={won(balance)}
                   Child={btn}
+                  handleClick={() => gotoAccountDetail(id)}
                 />
               );
             }

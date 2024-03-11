@@ -6,13 +6,14 @@ const SecondCard = ({ title, subTitle, icon, Child, handleClick }) => {
   return (
     <div
       className="Card-second"
-      onClick={(e) =>
-        e.target === e.currentTarget
+      onClick={(e) => {
+        return e.target === e.currentTarget ||
+          e.target.parentElement.parentElement.parentElement === e.currentTarget
           ? handleClick
             ? handleClick()
             : null
-          : null
-      }
+          : null;
+      }}
     >
       <div className="left">
         <div>{icon}</div>

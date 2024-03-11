@@ -17,15 +17,18 @@ const TransferConfirm = ({
     <div className="tr-confirm">
       <div>
         <div>
-          {/* 내것인지 확인 */}
-          <span className="highlight">{toAccount.account_name}</span>님에게
+          <span className="highlight">
+            {`${isFill ? "내 " : ""}`}
+            {toAccount.account_name}
+          </span>
+          {`${isFill ? "으로" : "님에게"}`}
         </div>
         <div>{won(amount)}을</div>
         <div>{`${isFill ? "채울" : "보낼"}까요?`}</div>
       </div>
       <div className="tr-info">
         <div>
-          {/* 내 이름? */}
+          {/* 게좌 예금주 */}
           <div>받는 분에게 표시</div> <div>{""}</div>
         </div>
         <div>

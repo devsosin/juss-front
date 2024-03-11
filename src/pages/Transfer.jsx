@@ -115,13 +115,17 @@ const Transfer = () => {
           <div>
             <span>{`내 ${fromAccount.account_name}`}</span>에서
           </div>
-          <div>{`잔액 ${won(fromAccount.balance)}`}</div>
+          <div className="balance-text">{`잔액 ${won(
+            fromAccount.balance
+          )}`}</div>
         </div>
 
         <div className="transfer-to">
           <div>
-            {/* 내 계좌일 수도 있음 */}
-            <span>{`${toAccount.account_name}`}</span>님에게
+            <span>
+              {`${toAccount.is_own ? "내 " : ""}` + toAccount.account_name}
+            </span>
+            {`${toAccount.is_own ? "으로" : "님에게"}`}
           </div>
           <div>{`${toAccount.bank_name} ${toAccount.account_number}`}</div>
         </div>
@@ -131,7 +135,7 @@ const Transfer = () => {
         <input
           type="text"
           value={amount ? amount : ""}
-          placeholder="얼마나 보낼까요?"
+          placeholder={`얼마나 ${toAccount.is_own ? "채울" : "보낼"}까요?`}
         />
       </div>
 
@@ -160,7 +164,7 @@ const Transfer = () => {
           <TransferConfirm
             fromAccount={fromAccount}
             toAccount={toAccount}
-            isFill={fromAccount.user_id === toAccount.user_id}
+            isFill={toAccount.is_own}
             amount={parseInt(amount.replace(/\D/g, ""))}
             sendMoney={sendMoney}
           />
@@ -174,7 +178,7 @@ const Transfer = () => {
           <TransferIng
             fromAccount={fromAccount}
             toAccount={toAccount}
-            isFill={fromAccount.userId === toAccount.userId}
+            isFill={toAccount.is_own}
             amount={parseInt(amount.replace(/\D/g, ""))}
           />
         </Modal>
@@ -186,7 +190,7 @@ const Transfer = () => {
           <TransferComplete
             fromAccount={fromAccount}
             toAccount={toAccount}
-            isFill={fromAccount.userId === toAccount.userId}
+            isFill={toAccount.is_own}
             amount={parseInt(amount.replace(/\D/g, ""))}
           />
         </Modal>

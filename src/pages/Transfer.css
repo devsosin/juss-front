@@ -60,6 +60,10 @@
   color: white;
 }
 
+.balance-text {
+  color: #787878;
+}
+
 .show {
   display: flex;
 }
