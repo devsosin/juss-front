@@ -14,7 +14,8 @@ import { won } from "../utils/currency";
 
 import "./Account.css";
 import Balance from "../components/Card/Balance";
-import axios from "axios";
+import { getAccount } from "../api/account";
+import { getTransactions } from "../api/transaction";
 
 const Account = () => {
   const navigate = useNavigate();
@@ -26,35 +27,19 @@ const Account = () => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    axios({
-      url: `http://localhost:8080/api/v1/account/${accountId}`,
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    })
-      .then((res) => setAccount(res.data))
-      .catch((e) => {
-        localStorage.setItem("jwt-token", null);
-        navigate("/start");
-      });
-
-    // .catch((e) => {
-    //   localStorage.setItem("jwt-token", null);
-    //   navigate("/start");
-    // });
+    getAccount({
+      token: localStorage.getItem("jwt-token"),
+      accountId,
+    }).then((data) => setAccount(data));
   }, [accountId]);
 
   useEffect(() => {
-    axios({
-      url: `http://localhost:8080/api/v1/transaction/${accountId}`,
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    }).then((res) => {
+    getTransactions({
+      token: localStorage.getItem("jwt-token"),
+      accountId,
+    }).then((trs) => {
       let nowBalance = account.balance;
-      const data = res.data.transactions.reduce((acc, v, i) => {
+      const data = trs.reduce((acc, v, i) => {
         const haveDate = acc.filter(
           ({ date }) =>
             date.slice(0, 3).join("") === v.created_at.slice(0, 3).join("")

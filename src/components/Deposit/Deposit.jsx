@@ -6,7 +6,7 @@ import "./Deposit.css";
 import Card from "../Card/Card";
 
 import { won } from "../../utils/currency";
-import axios from "axios";
+import { getAccounts } from "../../api/account";
 
 const Deposit = ({ toId }) => {
   const navigate = useNavigate();
@@ -15,22 +15,11 @@ const Deposit = ({ toId }) => {
 
   // 내 계좌 제외
   useEffect(() => {
-    axios({
-      url: "http://localhost:8080/api/v1/accounts",
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    })
-      .then((res) =>
-        setMyAccounts(
-          res.data.accounts.filter((v) => v.id !== toId && v.account_type === 0)
-        )
+    getAccounts({ token: localStorage.getItem("jwt-token") }).then((accounts) =>
+      setMyAccounts(
+        accounts.filter((v) => v.id !== toId && v.account_type === 0)
       )
-      .catch((e) => {
-        localStorage.setItem("jwt-token", null);
-        navigate("/start");
-      });
+    );
   }, []);
 
   return (

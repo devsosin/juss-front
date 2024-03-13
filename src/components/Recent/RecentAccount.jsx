@@ -7,7 +7,8 @@ import SecondCard from "../Card/SecondCard";
 import Favorite from "../Card/Favorite";
 
 import "./RecentAccount.css";
-import axios from "axios";
+
+import { getRecents } from "../../api/account";
 
 const RecentAccount = ({ fromId }) => {
   const navigate = useNavigate();
@@ -16,18 +17,9 @@ const RecentAccount = ({ fromId }) => {
 
   // id를 통해 가져오기
   useEffect(() => {
-    axios({
-      url: "http://localhost:8080/api/v1/recent?type=0",
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    })
-      .then((res) => setRecentAccounts(res.data.accounts))
-      .catch((e) => {
-        localStorage.setItem("jwt-token", null);
-        navigate("/start");
-      });
+    getRecents({ token: localStorage.getItem("jwt-token"), type: 0 }).then(
+      (res) => setRecentAccounts(res)
+    );
   }, [fromId]);
 
   return (

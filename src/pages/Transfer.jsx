@@ -12,7 +12,9 @@ import "./Transfer.css";
 
 import { won } from "../utils/currency";
 import Modal from "../components/Modal/Modal";
-import axios from "axios";
+
+import { getAccount } from "../api/account";
+import { transferMoney } from "../api/transfer";
 
 const Transfer = () => {
   const navigate = useNavigate();
@@ -26,33 +28,17 @@ const Transfer = () => {
   const [showComplete, setShowComplete] = useState(false);
 
   useEffect(() => {
-    axios({
-      url: `http://localhost:8080/api/v1/account/${fromId}`,
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    })
-      .then((res) => setFromAccount(res.data))
-      .catch((e) => {
-        localStorage.setItem("jwt-token", null);
-        navigate("/start");
-      });
+    getAccount({
+      token: localStorage.getItem("jwt-token"),
+      accountId: fromId,
+    }).then((data) => setFromAccount(data));
   }, [fromId]);
 
   useEffect(() => {
-    axios({
-      url: `http://localhost:8080/api/v1/account/${toId}`,
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    })
-      .then((res) => setToAccount(res.data))
-      .catch((e) => {
-        localStorage.setItem("jwt-token", null);
-        navigate("/start");
-      });
+    getAccount({
+      token: localStorage.getItem("jwt-token"),
+      accountId: toId,
+    }).then((data) => setToAccount(data));
   }, [toId]);
 
   const changeAmount = (v) => {
@@ -79,17 +65,12 @@ const Transfer = () => {
     setShowConfirm(false);
     setShowIng(true);
 
-    // send data
-    axios({
-      url: "http://127.0.0.1:8080/api/v1/transfer",
-      method: "post",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-      data: {
+    transferMoney({
+      token: localStorage.getItem("jwt-token"),
+      body: {
         sender_id: fromAccount.id,
         receiver_id: toAccount.id,
-        amount: amount.replace(/\D/g, ""),
+        amount: parseInt(amount.replace(/\D/g, "")),
         memo: "",
       },
     }).then(() => {

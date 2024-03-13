@@ -10,7 +10,7 @@ import SubButton from "../components/Button/SubButton";
 import Card from "../components/Card/Card";
 
 import { won } from "../utils/currency";
-import axios from "axios";
+import { getAccounts } from "../api/account";
 
 const Asset = () => {
   const [accounts, setAccounts] = useState([]);
@@ -24,18 +24,9 @@ const Asset = () => {
   };
 
   useEffect(() => {
-    axios({
-      url: "http://localhost:8080/api/v1/accounts",
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    })
-      .then((res) => setAccounts(res.data.accounts))
-      .catch((e) => {
-        localStorage.setItem("jwt-token", null);
-        navigate("/start");
-      });
+    getAccounts({ token: localStorage.getItem("jwt-token") }).then((data) =>
+      setAccounts(data)
+    );
   }, []);
 
   useEffect(() => {

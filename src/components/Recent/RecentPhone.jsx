@@ -7,25 +7,17 @@ import SecondCard from "../Card/SecondCard";
 import Favorite from "../Card/Favorite";
 
 import "./RecentPhone.css";
-import axios from "axios";
+
+import { getRecents } from "../../api/account";
 
 const RecentPhone = ({ fromId }) => {
   const navigate = useNavigate();
   const [recentPhones, setRecentPhones] = useState([]);
   // id를 통해 가져오기
   useEffect(() => {
-    axios({
-      url: "http://localhost:8080/api/v1/recent?type=2",
-      method: "get",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt-token")}`,
-      },
-    })
-      .then((res) => setRecentPhones(res.data.accounts))
-      .catch((e) => {
-        localStorage.setItem("jwt-token", null);
-        navigate("/start");
-      });
+    getRecents({ token: localStorage.getItem("jwt-token"), type: 2 }).then(
+      (res) => setRecentPhones(res)
+    );
   }, [fromId]);
 
   return (
